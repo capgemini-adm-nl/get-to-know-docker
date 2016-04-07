@@ -108,7 +108,7 @@ docker start --attach --interactive <CONTAINER NAME OR ID>
 ```
 
 Exit the bash shell if necessary and try out the same command again without the `--interactive option`. If you are stuck you can use Ctrl-C to stop the container process.
-In situations where your container is already running and you want to open a new shell or proces you should use two other commands.
+In situations where your container is already running and you want to open a new shell or process you should use two other commands.
 Look up the `docker attach` and `docker exec` commands in the [Docker Commandline Reference](https://docs.docker.com/engine/reference/commandline/) and use them to open a new bash shell inside your running ubuntu container. Consider which command line options are needed.
 
 Docker `attach` let's you use only one instance of shell. On the other hand, `docker exec`  will let you run arbitrary commands inside an existing container. So if we want open new terminal with *new* instance of container's shell, we need to run `docker exec`. 
@@ -320,12 +320,12 @@ docker run --name my-database -e MYSQL_ROOT_PASSWORD=secret -d mysql
 ```
 
 Note that port mapping (-p) is not used, so this database is not accessible from the docker host. 
-Run a container of the wordpress image, linked to the DB container. The `--link accepts` two arguments: `<container-name or container-ID>:<alias>`. This alias can be compared to using a hosts file in Windows.
+Run a container of the Wordpress image, linked to the DB container. The `--link accepts` two arguments: `<container-name or container-ID>:<alias>`. This alias can be compared to using a hosts file in Windows.
 ``` sh
 docker run --name my-wordpress --link my-database:mysql -p 1002:80 -d wordpress
 ```
 
-Start a web-browser and navigate to the Wordpress webinterface:
+Start a browser and navigate to the Wordpress webinterface:
 `http://<docker-machine-ip>:1000`
 
 
