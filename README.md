@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/timschadenberg/get-to-know-docker/master/img/header.jpg" width="700" />
+<img src="https://github.com/capgemini-adm-nl/get-to-know-docker/blob/master/img/header.jpg" width="700" />
 ## Authors 
 @Hijmen Fokker
 
@@ -247,7 +247,7 @@ Start a web-browser, and navigate to the Tomcat webinterface of the different co
 
 `http://<docker-machine-ip>:1001`
 
-<img src="https://raw.githubusercontent.com/timschadenberg/get-to-know-docker/master/img/tomcat.png" width="500" />
+<img src="https://github.com/capgemini-adm-nl/get-to-know-docker/blob/master/img/tomcat.png" width="500" />
 
 
 ## Assignment 4: Build your own image
@@ -260,7 +260,7 @@ Using `docker commit` is a pretty simple way of extending an image but it’s a 
 This command uses a [Dockerfile](https://docs.docker.com/engine/reference/builder/) which contains a set of instructions that tell Docker how to build our image.
 In the previous assignments we already saw what a Dockerfile looks like in the Docker Hub. Now we will look at it in more detail.
 
-Grab the Dockerfile from this [link](https://github.com/timschadenberg/get-to-know-docker/blob/master/assignment-4/4.1/Dockerfile), and save it to a particular folder in your project workspace (for example /myapp). Examine the Dockerfile and skim through the Dockerfile reference guide to lookup some of the instructions that are used.  
+Grab the Dockerfile from this [link](https://github.com/capgemini-adm-nl/get-to-know-docker/blob/master/assignment-4/4.1/Dockerfile), and save it to a particular folder in your project workspace (for example /myapp). Examine the Dockerfile and skim through the Dockerfile reference guide to lookup some of the instructions that are used.  
 
 Once you have a rough understanding of what goes on inside, use the Docker CLI to build an image from the Dockerfile. 
 
