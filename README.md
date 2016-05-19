@@ -14,7 +14,7 @@ The aim of these assignments are to get you familiar with the Docker commands an
 
 So to get started with Docker first you need to install the Docker Toolbox which provides you with not only the Docker Client, but also [Docker Machine](https://docs.docker.com/machine/overview/) (which controls the Docker Engine) and [Docker Compose](https://docs.docker.com/compose/overview/) (which allows you to specify a multiple container setup in a single file) and a GUI to easily control your Docker images and containers.
 
-You can grab Docker Toolbox at [github.com/docker/toolbox](https://github.com/docker/toolbox/releases/download/v1.10.3/DockerToolbox-1.10.3.exe).
+You can grab Docker Toolbox at [github.com/docker/toolbox](https://github.com/docker/toolbox/releases/download/v1.10.2/DockerToolbox-1.10.2.exe).
 While you are downloading the installer go ahead and create your free Docker Hub account. You will use this account in the first assignment where you create your first container. You can signup for an account at [hub.docker.com](https://hub.docker.com/)
 
 
