@@ -1,4 +1,3 @@
-<img src="https://github.com/capgemini-adm-nl/get-to-know-docker/blob/master/img/header.jpg" width="700" />
 ## Authors 
 @Hijmen Fokker
 
@@ -109,7 +108,7 @@ docker start --attach --interactive <CONTAINER NAME OR ID>
 
 Exit the bash shell if necessary and try out the same command again without the `--interactive option`. If you are stuck you can use Ctrl-C to stop the container process.
 In situations where your container is already running and you want to open a new shell or process you should use two other commands.
-Look up the `docker attach` and `docker exec` commands in the [Docker Commandline Reference](https://docs.docker.com/engine/reference/commandline/) and use them to open a new bash shell inside your running ubuntu container. Consider which command line options are needed.
+Look up the `docker attach` and `docker exec` commands in the [Docker Commandline Reference](https://docs.docker.com/engine/reference/commandline/docker/) and use them to open a new bash shell inside your running ubuntu container. Consider which command line options are needed.
 
 Docker `attach` let's you use only one instance of shell. On the other hand, `docker exec`  will let you run arbitrary commands inside an existing container. So if we want open new terminal with *new* instance of container's shell, we need to run `docker exec`. 
 If your container is running a webserver for example, `docker attach` will probably connect you to the STDOUT of the webserver process. It won't necessarily give you a shell. 
@@ -187,34 +186,6 @@ Ok, so we have our container and the changes you made inside it. We want to use 
 docker commit <CONTAINER NAME OR ID> <IMAGE NAME:TAG>
 ``` 
 Use the docker command to show all your images to check if your image is in the list. Notice the *VIRTUAL SIZE* of your image.
-
-Do you want to share this image with other developers or friends? Then you can upload it to the public Docker registry (Docker Hub) or your own private Docker Registry.
-
-Unlike the previous search and pull commands, you must be logged in to push. If you're not already logged in, Docker will prompt you for your credentials.
-Login to the Docker Hub:
-``` sh
-docker login --username=<DOCKER ACCOUNT NAME> --email=<EMAIL ADDRESS>
-```
-And push your image.
-
-``` sh
-$ docker push mynewimage:latest
-
-2016/04/07 18:00:00 You cannot push a "root" repository. Please rename your repository in <user>/<repo> (ex: timschadenberg/mynewimage:latest)
-```` 
-This rather self-explanatory error occurs because we didn't specify a username when we created the image. To push to the Docker Hub, though, you must specify a username. 
-So, let's add our username using the docker tag command:
-``` sh
-docker tag <IMAGE ID> <DOCKER ACCOUNT NAME/IMAGE NAME:TAG>
-```
-
-Once you've retagged it you can upload your newly created image!
-``` sh
-docker push <DOCKER ACCOUNT NAME/IMAGE NAME:TAG>
-```
-
-Finally try to `pull` an image from your colleague from the Hub and create a container with it. Can you see the changes that he/she made?
-
 
 ## Assignment 3: Port mapping
 **Goal: Learn how to map ports of a container to your host machine.**
@@ -307,26 +278,35 @@ The first thing Docker does is upload the build context: basically the contents 
 Next you can see each instruction in the Dockerfile being executed step-by-step. You can see that each step creates a new container, runs the instruction inside that container and then commits that change - just like the `docker commit` workflow you saw earlier. When all the instructions have executed you’re left with the newly created image and all intermediate containers will get removed to clean things up.
 
 
-## Assignment 5: Linking containers
-**Goal: Link containers using environment variables.**
+## Bonus Assignment: Sharing images
+**Goal: Learn how to push your images to the Docker Hub.**
 
-In this assignment we will learn to link containers (App --> DB) using the Docker `--link` command line option.
+Do you want to share this image with other developers or friends? Then you can upload it to the public Docker registry (Docker Hub) or your own private Docker Registry.
 
-Download the latest MySQL image and latest Wordpress image from the Docker Hub.
-
-These images use something called [“environment variables”](https://docs.docker.com/engine/reference/run/#env-environment-variables). With these variables, a container can be started with environment specific settings, like database configuration. Start a mysql-container, using the following command. A name “my-database” will later on be used to link the Wordpress container to this database.
+Unlike the previous search and pull commands, you must be logged in to push. If you're not already logged in, Docker will prompt you for your credentials.
+Login to the Docker Hub:
 ``` sh
-docker run --name my-database -e MYSQL_ROOT_PASSWORD=secret -d mysql
+docker login --username=<DOCKER ACCOUNT NAME> --email=<EMAIL ADDRESS>
+```
+And push your image.
+
+``` sh
+$ docker push mynewimage:latest
+
+2016/04/07 18:00:00 You cannot push a "root" repository. Please rename your repository in <user>/<repo> (ex: timschadenberg/mynewimage:latest)
+```` 
+This rather self-explanatory error occurs because we didn't specify a username when we created the image. To push to the Docker Hub, though, you must specify a username. 
+So, let's add our username using the docker tag command:
+``` sh
+docker tag <IMAGE ID> <DOCKER ACCOUNT NAME/IMAGE NAME:TAG>
 ```
 
-Note that port mapping (-p) is not used, so this database is not accessible from the docker host. 
-Run a container of the Wordpress image, linked to the DB container. The `--link accepts` two arguments: `<container-name or container-ID>:<alias>`. This alias can be compared to using a hosts file in Windows.
+Once you've retagged it you can upload your newly created image!
 ``` sh
-docker run --name my-wordpress --link my-database:mysql -p 1002:80 -d wordpress
+docker push <DOCKER ACCOUNT NAME/IMAGE NAME:TAG>
 ```
 
-Start a browser and navigate to the Wordpress webinterface:
-`http://<docker-machine-ip>:1000`
+Finally try to `pull` an image from your colleague from the Hub and create a container with it. Can you see the changes that he/she made?
 
 
 ## Bonus Assignment: Use Docker Compose
@@ -357,6 +337,28 @@ You can see how we’ve just replicated the commands above into a yml file (usin
 ```sh
 $ docker-compose up -d
 ``` 
+
+## Bonus Assignment: Linking containers (deprecated)
+**Goal: Link containers using environment variables.**
+
+**Warning:** Since the introduction of the [Networks feature](https://docs.docker.com/engine/userguide/networking/) linking containers has changed. Please refer to [link](https://docs.docker.com/engine/userguide/networking/default_network/dockerlinks/)
+In this assignment we will learn to link containers (App --> DB) using the Docker `--link` command line option.
+
+Download the latest MySQL image and latest Wordpress image from the Docker Hub.
+
+These images use something called [“environment variables”](https://docs.docker.com/engine/reference/run/#env-environment-variables). With these variables, a container can be started with environment specific settings, like database configuration. Start a mysql-container, using the following command. A name “my-database” will later on be used to link the Wordpress container to this database.
+``` sh
+docker run --name my-database -e MYSQL_ROOT_PASSWORD=secret -d mysql
+```
+
+Note that port mapping (-p) is not used, so this database is not accessible from the docker host. 
+Run a container of the Wordpress image, linked to the DB container. The `--link accepts` two arguments: `<container-name or container-ID>:<alias>`. This alias can be compared to using a hosts file in Windows.
+``` sh
+docker run --name my-wordpress --link my-database:mysql -p 1002:80 -d wordpress
+```
+
+Start a browser and navigate to the Wordpress webinterface:
+`http://<docker-machine-ip>:1000`
 
 ---
 
